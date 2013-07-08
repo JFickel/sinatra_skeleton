@@ -1,7 +1,12 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
-
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  $('.load-gif').on('load', function(){
+    $.ajax({
+      url: '/retrieve_tweets',
+      method: 'post',
+      data: {twitter_username: window.location.pathname.split('/')[1]}
+    }).done(function(response){
+      $('.load-gif').css('display', 'none');
+      $('.tweet-output').append(response);
+    });
+  });
 });
